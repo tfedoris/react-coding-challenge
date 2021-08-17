@@ -1,10 +1,11 @@
 import React, { ReactElement, useState } from "react";
+import "./input-text-field.css";
 
-interface Props extends React.HTMLProps<HTMLInputElement> {
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   onSubmit: () => void;
 }
 
-function InputTextField(props: Props): ReactElement {
+function InputTextField({ onSubmit, ...props }: Props): ReactElement {
   const [value, setValue] = useState("");
 
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -13,7 +14,7 @@ function InputTextField(props: Props): ReactElement {
 
   function handleKeyDown(event: React.KeyboardEvent) {
     if (event.key === "Enter") {
-      props.onSubmit();
+      onSubmit();
       clearInput();
     }
   }

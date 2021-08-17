@@ -1,4 +1,5 @@
 import React, { ReactElement } from "react";
+import "./ordered-list.css";
 
 interface Props {}
 
