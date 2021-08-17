@@ -14,7 +14,12 @@ function InputTextField({ onSubmit }: Props): ReactElement {
   function handleKeyDown(event: React.KeyboardEvent) {
     if (event.key === "Enter") {
       onSubmit();
+      clearInput();
     }
+  }
+
+  function clearInput() {
+    setValue("");
   }
 
   return (
