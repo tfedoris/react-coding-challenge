@@ -1,10 +1,10 @@
 import React, { ReactElement, useState } from "react";
 
-interface Props {
+interface Props extends React.HTMLProps<HTMLInputElement> {
   onSubmit: () => void;
 }
 
-function InputTextField({ onSubmit }: Props): ReactElement {
+function InputTextField(props: Props): ReactElement {
   const [value, setValue] = useState("");
 
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -13,7 +13,7 @@ function InputTextField({ onSubmit }: Props): ReactElement {
 
   function handleKeyDown(event: React.KeyboardEvent) {
     if (event.key === "Enter") {
-      onSubmit();
+      props.onSubmit();
       clearInput();
     }
   }
@@ -28,6 +28,7 @@ function InputTextField({ onSubmit }: Props): ReactElement {
       value={value}
       onChange={handleInputChange}
       onKeyDown={handleKeyDown}
+      {...props}
     />
   );
 }
