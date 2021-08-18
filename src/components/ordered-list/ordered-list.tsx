@@ -1,5 +1,6 @@
 import React, { ReactElement } from "react";
 import useLocalStorage from "components/hooks";
+import List from "components/list";
 import InputTextField from "components/input-text-field";
 import Button from "components/button";
 import Emoji from "components/emoji";
@@ -8,15 +9,15 @@ import "./ordered-list.css";
 interface Props {}
 
 function OrderedList(props: Props): ReactElement {
-  const [list, setList] = useLocalStorage("list", []);
+  const [listItems, setListItems] = useLocalStorage("list", []);
   const [sortAscending, setSortAscending] = React.useState(true);
 
   function handleSubmitEntry(entry: string) {
-    setList([...list, entry]);
+    setListItems([...listItems, entry]);
   }
 
   function handleClearList() {
-    setList([]);
+    setListItems([]);
   }
 
   return (
@@ -42,6 +43,7 @@ function OrderedList(props: Props): ReactElement {
       <Button onClick={handleClearList} aria-label="clear list">
         <Emoji label={"clear"} symbol={"🆑"} />
       </Button>
+      <List items={listItems}></List>
     </div>
   );
 }
