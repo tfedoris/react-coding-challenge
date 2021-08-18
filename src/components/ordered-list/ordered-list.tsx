@@ -25,6 +25,11 @@ function OrderedList({ className }: Props): ReactElement {
   }
 
   function addItem(entry: string) {
+    // prevent an item from being added if it already exists in the list or if the entry is empty
+    if (entry === "" || listItems.includes(entry)) {
+      return;
+    }
+
     const updatedListItems = binaryInsert(
       [...listItems],
       entry,
