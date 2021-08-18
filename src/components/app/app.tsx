@@ -4,8 +4,8 @@ import OrderedList from "components/ordered-list";
 
 function App() {
   return (
-    <div className="App">
-      <OrderedList />
+    <div id="container">
+      <OrderedList className={"ordered-list"} />
     </div>
   );
 }

@@ -1,5 +1,4 @@
 import React from "react";
-import "./emoji.css";
 
 interface Props {
   className?: string;

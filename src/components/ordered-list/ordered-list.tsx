@@ -4,46 +4,67 @@ import List from "components/list";
 import InputTextField from "components/input-text-field";
 import Button from "components/button";
 import Emoji from "components/emoji";
+import { binaryInsert } from "binary-insert";
 import "./ordered-list.css";
 
-interface Props {}
+interface Props {
+  className: string;
+}
 
-function OrderedList(props: Props): ReactElement {
+function OrderedList({ className }: Props): ReactElement {
   const [listItems, setListItems] = useLocalStorage("list", []);
-  const [sortAscending, setSortAscending] = React.useState(true);
+  const [sortAscending, setSortAscending] = useLocalStorage(
+    "sortAscending",
+    true
+  );
 
-  function handleSubmitEntry(entry: string) {
-    setListItems([...listItems, entry]);
+  function listItemSortComparator(a: string, b: string) {
+    // if sortAscending is false, multiply the result of the comparator by -1 to sort in descending order
+    const sortCoefficient = sortAscending ? 1 : -1;
+    return sortCoefficient * a.localeCompare(b);
   }
 
-  function handleClearList() {
+  function addItem(entry: string) {
+    const updatedListItems = binaryInsert(
+      [...listItems],
+      entry,
+      listItemSortComparator
+    );
+
+    setListItems(updatedListItems);
+  }
+
+  function toggleSort() {
+    setSortAscending(!sortAscending);
+    setListItems(listItems.reverse());
+  }
+
+  function clearList() {
     setListItems([]);
   }
 
   return (
-    <div>
-      <InputTextField onEnterKeyDown={handleSubmitEntry} />
-      <br />
+    <div className={className}>
+      <InputTextField
+        className={"monospaced ordered-list-input"}
+        onEnterKeyDown={addItem}
+      />
       <Button
-        onClick={() => {
-          console.log("Button was pressed!");
-        }}
-        aria-label="sort ascending"
+        className={"emoji-button"}
+        onClick={clearList}
+        aria-label="clear list"
       >
-        <Emoji label={"up arrow"} symbol={"⬆️"} />
-      </Button>
-      <Button
-        onClick={() => {
-          console.log("Button was pressed!");
-        }}
-        aria-label="sort descending"
-      >
-        <Emoji label={"down arrow"} symbol={"⬇️"} />
-      </Button>
-      <Button onClick={handleClearList} aria-label="clear list">
         <Emoji label={"clear"} symbol={"🆑"} />
       </Button>
-      <List items={listItems}></List>
+      <Button className={"emoji-button"} onClick={toggleSort}>
+        <Emoji
+          label={sortAscending ? "down arrow" : "up arrow"}
+          symbol={sortAscending ? "⬇️" : "⬆️"}
+        />
+      </Button>
+      <div className={"monospaced list"}>
+        <List items={listItems}></List>
+      </div>
     </div>
   );
 }

@@ -1,5 +1,4 @@
 import React, { ReactElement } from "react";
-import "./button.css";
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   onClick: () => void;
