@@ -1,0 +1,38 @@
+.emoji-button {
+  float: right;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 22px;
+  padding: 0;
+  margin: 1px 5px 0 2px;
+  padding-bottom: 2px;
+  border-bottom: 5px solid transparent;
+  border-width: 4px;
+}
+
+.emoji-button:hover {
+  border-color: #000;
+}
+
+.monospaced {
+  font-family: "Lucida Console", Courier, monospace;
+  font-size: 18px;
+}
+
+.ordered-list-input {
+  float: left;
+  margin-top: 4px;
+}
+
+.list {
+  clear: both;
+  position: relative;
+  top: 22px;
+  left: 30px;
+  list-style-position: inside;
+}
+
+.list li {
+  margin: 10px 0;
+}
